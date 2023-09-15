@@ -1,35 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+//import reactLogo from "./assets/react.svg";
+//import viteLogo from "/vite.svg";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import axios from "axios";
+import "./App.css";
+import { PokemonDetail } from "./components/PokemonDetail";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+interface Pokemon {
+  sprites: any;
+  name: string;
 }
 
-export default App
+function App() {
+  // const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+  // async function fetchPokemons() {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://pokeapi.co/api/v2/pokemon?limit=1500"
+  //     );
+  //     console.log(response.data.results);
+  //     setPokemons(response.data.results);
+  //   } catch (error) {
+  //     console.error("Error fetching pokemons:", error);
+  //     throw error;
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchPokemons();
+  // }, []);
+
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle the search logic here, e.g., make an API call or update the component state.
+    console.log("Search submitted:", searchValue);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <h1>PokeLibrary</h1>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Search Pokemon"
+                  value={searchValue}
+                  onChange={handleChange}
+                />
+              </form>
+            </>
+          }
+        />
+
+        <Route path="/:name" element={<PokemonDetail />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
