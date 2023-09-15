@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { NotFound } from "./NotFound";
 
 interface Pokemon {
   name: string;
@@ -15,6 +16,7 @@ interface Pokemon {
 
 export function PokemonDetail() {
   const { name } = useParams();
+  const [pokemonFound, setPokemonFound] = useState(true);
   const [pokemon, setPokemon] = useState<Pokemon>({
     name: "",
     sprites: {
@@ -34,8 +36,7 @@ export function PokemonDetail() {
       console.log(response.data);
       setPokemon(response.data);
     } catch (error) {
-      console.error("Error fetching pokemon:", error);
-      throw error;
+      setPokemonFound(false);
     }
   }
 
@@ -43,10 +44,19 @@ export function PokemonDetail() {
     fetchPokemonByName();
   }, []);
 
+  if (!pokemonFound) {
+    return <NotFound />;
+  }
   return (
     <div>
       <h2>{pokemon.name}</h2>
       <img src={pokemon.sprites.other["official-artwork"].front_default} />
+      <p>
+        Go back to
+        <b>
+          <Link to="/"> Home</Link>
+        </b>
+      </p>
     </div>
   );
 }
