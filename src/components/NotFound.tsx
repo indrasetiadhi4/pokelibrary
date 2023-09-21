@@ -4,7 +4,7 @@ export function NotFound() {
   return (
     <>
       <h1>404</h1>
-      <h2>Pokemon Not Found</h2>
+      <h2>Pokemon Not Found!!</h2>
       <p>
         Go back to
         <b>
