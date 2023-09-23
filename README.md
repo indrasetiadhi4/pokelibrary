@@ -2,6 +2,18 @@
 
 > Author: Indra Setiadhi P.
 
+## Overview
+
+PokéLibrary is a web-based React application that empowers users to explore and examine creatures from the expansive Pokémon cosmos. It communicates seamlessly with the PokéAPI to retrieve and present comprehensive information about Pokémon.
+
+### Homepage
+
+![homepage](assets/PokeLibrary-homepage.jpg)
+
+### Pokemon Details
+
+![Pokemon Detail](assets/PokeLibrary-pokemondetails.jpg)
+
 ## Installation
 
 ```bash
